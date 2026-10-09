@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#087f5b">
+  <title>Lanka Market | Buy & Sell</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" aria-label="Lanka Market home"><span class="brand-icon">L</span><span>Lanka <b>Market</b><small>BUY • SELL • CONNECT</small></span></a>
+  <div class="header-actions">
+    <button id="langToggle" class="btn btn-ghost" type="button">සිංහල</button>
+    <button id="loginOpen" class="btn btn-outline" type="button" data-i18n="login">Log in</button>
+    <button id="sellOpen" class="btn btn-primary" type="button" data-i18n="sellNow">＋ Sell an item</button>
+    <button id="logoutBtn" class="btn btn-outline hidden" type="button" data-i18n="logout">Log out</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow" data-i18n="eyebrow">SRI LANKA'S COMMUNITY MARKETPLACE</span>
+      <h1 data-i18n="headline">Find it. Love it.<br><em>Make it yours.</em></h1>
+      <p data-i18n="subheadline">Discover great deals near you, or give your pre-loved items a new home.</p>
+      <div class="hero-pills"><span>✓ <span data-i18n="easyContact">Contact sellers directly</span></span><span>✓ <span data-i18n="localDeals">Local deals</span></span></div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="sun"></div><div class="art-card card-one"><span>🎧</span><b>Tech finds</b></div>
+      <div class="art-card card-two"><span>👟</span><b>Fresh styles</b></div>
+      <div class="art-card card-three"><span>🪴</span><b>Home & living</b></div>
+      <div class="art-circle">LM</div>
+    </div>
+  </section>
+
+  <section class="search-section">
+    <div class="searchbar"><span class="search-icon">⌕</span><input id="searchInput" type="search" placeholder="What are you looking for?" data-i18n-placeholder="searchPlaceholder"><button id="searchBtn" class="btn btn-primary" data-i18n="search">Search</button></div>
+    <div class="filters">
+      <label><span data-i18n="category">Category</span><select id="categoryFilter"><option value="" data-i18n="allCategories">All categories</option><option>Electronics</option><option>Vehicles</option><option>Property</option><option>Fashion</option><option>Home & Garden</option><option>Sports</option><option>Other</option></select></label>
+      <label><span data-i18n="maxPrice">Maximum price (LKR)</span><input id="maxPrice" type="number" min="0" placeholder="Any price"></label>
+      <label><span data-i18n="district">District / city</span><input id="locationFilter" type="text" placeholder="e.g. Kandy"></label>
+      <button id="clearFilters" class="btn btn-ghost" type="button" data-i18n="clear">Clear filters</button>
+    </div>
+  </section>
+
+  <section class="listings-section">
+    <div class="section-heading"><div><span class="eyebrow" data-i18n="marketplace">THE MARKETPLACE</span><h2 data-i18n="latestListings">Latest listings</h2></div><span id="listingCount" class="count-label">Loading…</span></div>
+    <div id="statusMessage" class="status-message" role="status"></div>
+    <div id="listingsGrid" class="listings-grid"></div>
+    <div id="emptyState" class="empty-state hidden"><span>🔎</span><h3 data-i18n="noListings">No listings found</h3><p data-i18n="tryFilters">Try another search, or check back soon.</p></div>
+  </section>
+
+  <section class="sell-banner"><div><span class="eyebrow" data-i18n="gotSomething">GOT SOMETHING TO SELL?</span><h2 data-i18n="turnClutter">Turn clutter into cash.</h2><p data-i18n="sellDescription">Post your item and connect with interested buyers directly.</p></div><button id="sellBannerBtn" class="btn btn-light" type="button" data-i18n="startSelling">Start selling →</button></section>
+</main>
+
+<footer><a class="brand footer-brand" href="#"><span class="brand-icon">L</span><span>Lanka <b>Market</b><small>BUY • SELL • CONNECT</small></span></a><p data-i18n="footerText">A community marketplace for Sri Lanka. Buy and sell responsibly.</p><small>© <span id="year"></span> Lanka Market</small></footer>
+
+<div id="authModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="modal-backdrop" data-close="auth"></div><div class="modal-panel">
+    <button class="modal-close" data-close="auth" aria-label="Close">×</button><span class="eyebrow">LANKA MARKET</span><h2 id="authTitle" data-i18n="welcomeBack">Welcome back</h2><p data-i18n="authIntro">Log in or create an account to publish your listing.</p>
+    <div class="tabs"><button id="loginTab" class="tab active" type="button" data-i18n="login">Log in</button><button id="registerTab" class="tab" type="button" data-i18n="register">Create account</button></div>
+    <form id="authForm"><label data-i18n="email">Email address<input id="authEmail" type="email" required autocomplete="email" placeholder="you@example.com"></label><label data-i18n="password">Password<input id="authPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="At least 6 characters"></label><div id="authFeedback" class="form-feedback" aria-live="polite"></div><button id="authSubmit" class="btn btn-primary btn-full" type="submit" data-i18n="login">Log in</button></form>
+    <p class="fine-print" data-i18n="authPrivacy">Your password is handled securely by Supabase Authentication; it is not stored in this website's code.</p>
+  </div>
+</div>
+
+<div id="sellModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="sellTitle">
+  <div class="modal-backdrop" data-close="sell"></div><div class="modal-panel modal-wide">
+    <button class="modal-close" data-close="sell" aria-label="Close">×</button><span class="eyebrow" data-i18n="newListing">NEW LISTING</span><h2 id="sellTitle" data-i18n="postItem">Post an item</h2><p data-i18n="listingIntro">Share clear details so buyers know what you're offering.</p>
+    <form id="listingForm" class="listing-form">
+      <label data-i18n="itemTitle">Item title<input id="itemTitle" maxlength="100" required placeholder="e.g. Samsung Galaxy phone"></label>
+      <div class="form-row"><label data-i18n="itemCategory">Category<select id="itemCategory" required><option value="">Choose category</option><option>Electronics</option><option>Vehicles</option><option>Property</option><option>Fashion</option><option>Home & Garden</option><option>Sports</option><option>Other</option></select></label><label data-i18n="priceLkr">Price (LKR)<input id="itemPrice" type="number" min="0" max="999999999" required placeholder="25000"></label></div>
+      <label data-i18n="description">Description<textarea id="itemDescription" rows="4" maxlength="2000" required placeholder="Condition, age, features…"></textarea></label>
+      <div class="form-row"><label data-i18n="city">District / city<input id="itemLocation" maxlength="80" required placeholder="e.g. Colombo"></label><label data-i18n="phone">Phone number<input id="itemPhone" type="tel" maxlength="20" required placeholder="07XXXXXXXX"></label></div>
+      <label data-i18n="whatsapp">WhatsApp number (optional)<input id="itemWhatsapp" type="tel" maxlength="20" placeholder="07XXXXXXXX"></label>
+      <label data-i18n="productPhoto">Product photo (optional, max 5 MB)<input id="itemImage" type="file" accept="image/png,image/jpeg,image/webp"></label>
+      <div id="listingFeedback" class="form-feedback" aria-live="polite"></div><button id="publishBtn" class="btn btn-primary btn-full" type="submit" data-i18n="publishListing">Publish listing</button>
+    </form>
+  </div>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
